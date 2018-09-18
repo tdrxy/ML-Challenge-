@@ -3,7 +3,6 @@
 # https://ramhiser.com/post/2018-04-16-building-scikit-learn-pipeline-with-pandas-dataframe/
 # https://stackoverflow.com/questions/47790854/how-to-perform-onehotencoding-in-sklearn-getting-value-error
 from sklearn.base import BaseEstimator, TransformerMixin
-from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
 
 from challenge import get_data
@@ -95,10 +94,8 @@ class MissingCategoricalsTransformer(BaseEstimator, TransformerMixin):
         assert isinstance(X, pd.DataFrame)
         for col in self.columns:
             if self.strategy == 'none':
-                #X = X.apply(lambda x: x.fillna('Unknown'))
-                X.loc[:, col] = X.loc[:, col].fillna('Unknown')
+                X.loc[:, col] = X.loc[:, col].cat.add_categories("Unknown").fillna('Unknown')
             elif self.strategy == 'most_frequent':
-                #X = X.apply(lambda x:x.fillna(x.value_counts().index[0]))
                 X.loc[:, col] = X.loc[:, col].fillna(X.loc[:, col].value_counts().index[0])
             else:
                 raise Exception('Unknown strategy to fill na categoricals')
@@ -138,7 +135,7 @@ preprocess_pipeline = make_pipeline(
     CustomTypeTransformer(),
     # Select the columns we want to use for prediction
     ColumnSelector(columns=col_selection),
-    MissingCategoricalsTransformer(columns=categorical_colums, strategy="most_frequent"),
+    MissingCategoricalsTransformer(columns=categorical_colums, strategy="none"),
     # Standard scaling and one hot encoding
     FeatureUnion(transformer_list=[
         ("numeric_features", make_pipeline(
@@ -184,15 +181,21 @@ preprocess_pipeline = make_pipeline(
     ])
 )
 
+Z = preprocess_pipeline.fit_transform(X)
+
+ZZ = Z.toarray()
+print(type(Z.toarray()))
+#print(pd.DataFrame(Z.todense()).shape)
+#print(list(pd.DataFrame(Z.todense()).columns.values))
 classifier_pipeline = make_pipeline(
     preprocess_pipeline,
     LogisticRegression()
 )
 
-import numpy as np
-classifier_pipeline.fit(X, y.ravel())
-preds = classifier_pipeline.predict(X)
-print(np.mean(preds == y))
-
-def get_pipeline():
-    return classifier_pipeline
+# import numpy as np
+# classifier_pipeline.fit(X, y.ravel())
+# preds = classifier_pipeline.predict(X)
+# print(np.mean(preds == y))
+#
+# def get_pipeline():
+#     return classifier_pipeline

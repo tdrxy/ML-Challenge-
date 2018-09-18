@@ -6,6 +6,7 @@ pd.set_option('display.max_columns', 500)
 pd.set_option('display.width', 1000)
 
 X,y = get_data()
+print(X.head(10))
 print(X.isnull().sum())
 
 X = X.dropna()
@@ -13,7 +14,7 @@ print(X.dtypes)
 print(X.describe())
 
 # Correlation education, education-num
-grouped_X = X[['education', 'education-num']].groupby(['education'])
-for key, item in grouped_X:
-    print(grouped_X.get_group(key), "\n\n")
+# grouped_X = X[['education', 'education-num']].groupby(['education'])
+# for key, item in grouped_X:
+#     print(grouped_X.get_group(key), "\n\n")
 
