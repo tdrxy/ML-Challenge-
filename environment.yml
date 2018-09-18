@@ -1,0 +1,11 @@
+name: machine-learning-challenge-env
+channels:
+ - defaults
+ - conda-forge
+dependencies:
+ - joblib
+ - pandas
+ - python=3
+ - scikit-learn
+ - pip:
+   - tensorflow
