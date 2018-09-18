@@ -3,6 +3,8 @@
 # https://ramhiser.com/post/2018-04-16-building-scikit-learn-pipeline-with-pandas-dataframe/
 # https://stackoverflow.com/questions/47790854/how-to-perform-onehotencoding-in-sklearn-getting-value-error
 from sklearn.base import BaseEstimator, TransformerMixin
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import LogisticRegression
 
 from challenge import get_data
 import pandas as pd
@@ -10,8 +12,8 @@ pd.set_option('display.max_columns', 500)
 pd.set_option('display.width', 1000)
 
 from sklearn.pipeline import Pipeline, make_pipeline, FeatureUnion
-from sklearn.preprocessing import StandardScaler, Imputer, OneHotEncoder, LabelEncoder, LabelBinarizer, \
-    MultiLabelBinarizer
+from sklearn.preprocessing import StandardScaler, Imputer, OneHotEncoder, LabelEncoder, LabelBinarizer
+
 import numpy as np
 
 
@@ -23,8 +25,6 @@ print(X.head(3))
 
 print(X.isnull().sum())
 print(X.dtypes)
-
-X = X.head(4)
 
 class ColumnSelector(BaseEstimator, TransformerMixin):
     """
@@ -112,21 +112,26 @@ class LabelEncodeTransformer():
     def fit(self, X, y=None, **fit_params):
         return self
 
-class MissingValuesTransformer(BaseEstimator, TransformerMixin):
+class MissingCategoricalsTransformer(BaseEstimator, TransformerMixin):
     """
-        Custom transformer for handling missing data in pandas df adhering to sklearn's transform iface.
-        Usage ex:
-            cs = TypeSelector(dtypes=["int64", "float32"])
-            cs.fit_transform(df).head()
+    Custom transformer for filling NaNs in pandas df adhering to sklearn's transform iface.
+    Two strategies can be used: 'most_frequent' or 'none'. The latter fillsna with 'Unknown'
     """
+    def __init__(self, strategy='none'):
+        self.strategy = strategy
     def fit(self, X, y=None):
         return self
 
     def transform(self, X):
         assert isinstance(X, pd.DataFrame)
-        X = X.dropna()
-        # .fillna instead
+        if self.strategy == 'none':
+            X = X.apply(lambda x: x.fillna('Unknown'))
+        elif self.strategy == 'most_frequent':
+            X = X.apply(lambda x:x.fillna(x.value_counts().index[0]))
+        else:
+            raise Exception('Unknown strategy to fill na categoricals')
         return X
+
 
 class PipelineAwareLabelEncoder(TransformerMixin, BaseEstimator):
     def fit(self, X, y=None):
@@ -139,75 +144,98 @@ class PipelineAwareLabelEncoder(TransformerMixin, BaseEstimator):
 # fnlgwt dropped due to low value for predictive power
 col_selection = X.columns.tolist()
 col_selection.remove("fnlwgt")
-col_selection.remove("education")
-col_selection.remove("education-num")
-col_selection.remove("marital-status")
-col_selection.remove("occupation")
-col_selection.remove("relationship")
-col_selection.remove("race")
-col_selection.remove("sex")
-col_selection.remove("native-country")
+# col_selection.remove("education")
+# col_selection.remove("education-num")
+# col_selection.remove("marital-status")
+# col_selection.remove("occupation")
+# col_selection.remove("relationship")
+# col_selection.remove("race")
+# col_selection.remove("sex")
+# col_selection.remove("native-country")
+
 
 preprocess_pipeline = make_pipeline(
     CustomTypeTransformer(),
     ColumnSelector(columns=col_selection),
-    MissingValuesTransformer(),
-    #LabelEncodeTransformer(columns=cols_to_encode),
+    #MissingValuesTransformer(),
     FeatureUnion(transformer_list=[
-        ("numeric_features", make_pipeline(
+        ("numeric_nans", make_pipeline(
             TypeSelector(dtypes=["int64"]),
-            #Imputer(strategy="median"),
-            StandardScaler()
+            Imputer(strategy="median")
         )),
-        ("categorical_feature1", make_pipeline(
-            ColumnSelector(columns=["workclass"]),
-            PipelineAwareLabelEncoder(),
-            OneHotEncoder()
-        )),
-        # ("categorical_feature2", make_pipeline(
-        #     ColumnSelector(columns=["education"]),
-        #     PipelineAwareLabelEncoder(),
-        #     OneHotEncoder()
-        # )),
-        # ("categorical_feature3", make_pipeline(
-        #     ColumnSelector(columns=["education-num"]),
-        #     PipelineAwareLabelEncoder(),
-        #     OneHotEncoder()
-        # )),
-        # ("categorical_feature4", make_pipeline(
-        #     ColumnSelector(columns=["marital-status"]),
-        #     PipelineAwareLabelEncoder(),
-        #     OneHotEncoder()
-        # )),
-        # ("categorical_feature5", make_pipeline(
-        #     ColumnSelector(columns=["occupation"]),
-        #     PipelineAwareLabelEncoder(),
-        #     OneHotEncoder()
-        # )),
-        # ("categorical_feature6", make_pipeline(
-        #     ColumnSelector(columns=["relationship"]),
-        #     PipelineAwareLabelEncoder(),
-        #     OneHotEncoder()
-        # )),
-        # ("categorical_feature7", make_pipeline(
-        #     ColumnSelector(columns=["race"]),
-        #     PipelineAwareLabelEncoder(),
-        #     OneHotEncoder()
-        # )),
-        # ("categorical_feature8", make_pipeline(
-        #     ColumnSelector(columns=["sex"]),
-        #     PipelineAwareLabelEncoder(),
-        #     OneHotEncoder()
-        # )),
-        # ("categorical_feature9", make_pipeline(
-        #     ColumnSelector(columns=["native-country"]),
-        #     PipelineAwareLabelEncoder(),
-        #     OneHotEncoder()
-        # ))
-
-    ])
+        ("categorical_nans", make_pipeline(
+            TypeSelector(dtypes=["category"]),
+            MissingCategoricalsTransformer(strategy="most_frequent")
+        ))
+    ]),
+    # FeatureUnion(transformer_list=[
+    #     ("numeric_features", make_pipeline(
+    #         TypeSelector(dtypes=["int64"]),
+    #         StandardScaler()
+    #     )),
+    #     ("categorical_feature1", make_pipeline(
+    #         ColumnSelector(columns=["workclass"]),
+    #         PipelineAwareLabelEncoder(),
+    #         OneHotEncoder()
+    #     )),
+    #     ("categorical_feature2", make_pipeline(
+    #         ColumnSelector(columns=["education"]),
+    #         PipelineAwareLabelEncoder(),
+    #         OneHotEncoder()
+    #     )),
+    #     ("categorical_feature3", make_pipeline(
+    #         ColumnSelector(columns=["education-num"]),
+    #         PipelineAwareLabelEncoder(),
+    #         OneHotEncoder()
+    #     )),
+    #     ("categorical_feature4", make_pipeline(
+    #         ColumnSelector(columns=["marital-status"]),
+    #         PipelineAwareLabelEncoder(),
+    #         OneHotEncoder()
+    #     )),
+    #     ("categorical_feature5", make_pipeline(
+    #         ColumnSelector(columns=["occupation"]),
+    #         PipelineAwareLabelEncoder(),
+    #         OneHotEncoder()
+    #     )),
+    #     ("categorical_feature6", make_pipeline(
+    #         ColumnSelector(columns=["relationship"]),
+    #         PipelineAwareLabelEncoder(),
+    #         OneHotEncoder()
+    #     )),
+    #     ("categorical_feature7", make_pipeline(
+    #         ColumnSelector(columns=["race"]),
+    #         PipelineAwareLabelEncoder(),
+    #         OneHotEncoder()
+    #     )),
+    #     ("categorical_feature8", make_pipeline(
+    #         ColumnSelector(columns=["sex"]),
+    #         PipelineAwareLabelEncoder(),
+    #         OneHotEncoder()
+    #     )),
+    #     ("categorical_feature9", make_pipeline(
+    #         ColumnSelector(columns=["native-country"]),
+    #         PipelineAwareLabelEncoder(),
+    #         OneHotEncoder()
+    #     ))
+    #
+    # ])
 )
-print(X)
-preprocess_pipeline.fit(X)
-a = preprocess_pipeline.transform(X)
-print(a.todense())
+
+# A = X.head(4)
+# print(A)
+#
+# A['workclass'][1] = None
+# A['education-num'][3] = np.nan
+# print(A.isnull().sum())
+#
+# preprocess_pipeline.fit(A)
+# Z = preprocess_pipeline.transform(A)
+# print(Z)
+
+classifier_pipeline = make_pipeline(
+    preprocess_pipeline,
+    LogisticRegression()
+)
+
+#classifier_pipeline.fit(X, y)
