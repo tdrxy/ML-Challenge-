@@ -2,9 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e5a3ed23-0908-4c7e-8248-fb54dedd2c5f" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/challenge.py" beforeDir="false" afterPath="$PROJECT_DIR$/challenge.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/solution/TFWrapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/solution/TFWrapper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/solution/mytest.py" beforeDir="false" afterPath="$PROJECT_DIR$/solution/mytest.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/solution/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/solution/DataExploration" beforeDir="false" afterPath="$PROJECT_DIR$/solution/DataExploration" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/solution/TFWrapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/solution/TensorFlowEstimator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/solution/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/solution/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/solution/mytest.py" beforeDir="false" afterPath="$PROJECT_DIR$/solution/pipeline1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/solution/onlyNums.py" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -13,37 +17,49 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FavoritesManager">
+    <favorites_list name="machine-learning-challenge-master" />
+  </component>
   <component name="FileEditorManager">
     <leaf>
       <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/solution/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
+            <state relative-caret-position="152">
+              <caret line="8" column="16" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pipeline1.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/solution/pipeline1.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="288">
+              <caret line="135" selection-start-line="135" selection-end-line="135" />
               <folding>
-                <element signature="e#0#22#0" expanded="true" />
+                <element signature="e#470#526#0" expanded="true" />
+                <element signature="e#1036#1666#0" />
+                <element signature="e#1734#2722#0" />
+                <element signature="e#2781#3264#0" />
+                <element signature="e#3341#4195#0" />
+                <element signature="e#4306#4450#0" />
+                <element signature="e#4732#4909#0" />
+                <element signature="e#5849#7287#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mytest.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/solution/mytest.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-594">
-              <caret line="146" column="36" selection-start-line="146" selection-start-column="36" selection-end-line="146" selection-end-column="36" />
-              <folding>
-                <element signature="e#470#484#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
-      <file leaf-file-name="onlyNums.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/solution/onlyNums.py">
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/solution/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="71" column="26" selection-start-line="71" selection-start-column="26" selection-end-line="71" selection-end-column="26" />
+            <state relative-caret-position="323">
+              <caret line="17" column="80" lean-forward="true" selection-start-line="17" selection-start-column="80" selection-end-line="17" selection-end-column="80" />
             </state>
           </provider>
         </entry>
@@ -51,8 +67,8 @@
       <file leaf-file-name="DataExploration" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/solution/DataExploration">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="152">
-              <caret line="8" column="15" selection-start-line="8" selection-start-column="15" selection-end-line="8" selection-end-column="15" />
+            <state relative-caret-position="266">
+              <caret line="14" column="21" selection-start-line="14" selection-start-column="21" selection-end-line="14" selection-end-column="21" />
               <folding>
                 <element signature="e#0#46#0" expanded="true" />
               </folding>
@@ -63,8 +79,8 @@
       <file leaf-file-name="challenge.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/challenge.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="669">
-              <caret line="59" selection-start-line="59" selection-end-line="59" />
+            <state relative-caret-position="682">
+              <caret line="40" column="19" selection-start-line="40" selection-start-column="19" selection-end-line="40" selection-end-column="19" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -72,13 +88,15 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TFWrapper.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/solution/TFWrapper.py">
+      <file leaf-file-name="TensorFlowEstimator.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/solution/TensorFlowEstimator.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="552">
-              <caret line="41" column="26" selection-start-line="41" selection-start-column="26" selection-end-line="41" selection-end-column="40" />
+            <state relative-caret-position="798">
+              <caret line="42" selection-start-line="42" selection-end-line="42" />
               <folding>
                 <element signature="e#0#55#0" expanded="true" />
+                <element signature="e#2151#2494#0" />
+                <element signature="e#2773#2956#0" />
               </folding>
             </state>
           </provider>
@@ -102,12 +120,15 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/DataExploration" />
         <option value="$PROJECT_DIR$/mytest.py" />
-        <option value="$PROJECT_DIR$/solution/DataExploration" />
         <option value="$PROJECT_DIR$/solution/onlyNums.py" />
-        <option value="$PROJECT_DIR$/solution/__init__.py" />
-        <option value="$PROJECT_DIR$/solution/mytest.py" />
         <option value="$PROJECT_DIR$/challenge.py" />
+        <option value="$PROJECT_DIR$/solution/DataExploration" />
         <option value="$PROJECT_DIR$/solution/TFWrapper.py" />
+        <option value="$PROJECT_DIR$/solution/TensorFlowEstimator.py" />
+        <option value="$PROJECT_DIR$/solution/mytest.py" />
+        <option value="$PROJECT_DIR$/solution/__init__.py" />
+        <option value="$PROJECT_DIR$/solution/pipeline1.py" />
+        <option value="$PROJECT_DIR$/solution/README.md" />
       </list>
     </option>
   </component>
@@ -232,7 +253,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/solution/mytest.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/solution/pipeline1.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -246,8 +267,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.challenge" />
-        <item itemvalue="Python.mytest" />
         <item itemvalue="Python.DataExploration" />
+        <item itemvalue="Python.mytest" />
       </list>
     </recent_temporary>
   </component>
@@ -268,18 +289,18 @@
     <frame x="0" y="22" width="2560" height="1418" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24970461" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4996215" visible="true" weight="0.24970461" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Statistic" weight="0.329296" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3043149" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.329296" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3043149" />
       <window_info anchor="bottom" id="Version Control" />
       <window_info anchor="bottom" id="Python Console" weight="0.329296" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" weight="0.329296" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39969718" />
-      <window_info id="Favorites" side_tool="true" />
-      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info id="Favorites" sideWeight="0.5003785" side_tool="true" weight="0.24970461" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -298,11 +319,6 @@
           <url>file://$PROJECT_DIR$/challenge.py</url>
           <line>50</line>
           <option name="timeStamp" value="13" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/solution/TFWrapper.py</url>
-          <line>84</line>
-          <option name="timeStamp" value="35" />
         </line-breakpoint>
       </breakpoints>
       <option name="time" value="36" />
@@ -393,6 +409,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/challenge.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="682">
+          <caret line="40" column="19" selection-start-line="40" selection-start-column="19" selection-end-line="40" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/solution/onlyNums.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
@@ -402,51 +428,57 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/solution/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
-          <folding>
-            <element signature="e#0#22#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="152">
+          <caret line="8" column="16" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="16" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/solution/DataExploration">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="8" column="15" selection-start-line="8" selection-start-column="15" selection-end-line="8" selection-end-column="15" />
+        <state relative-caret-position="266">
+          <caret line="14" column="21" selection-start-line="14" selection-start-column="21" selection-end-line="14" selection-end-column="21" />
           <folding>
             <element signature="e#0#46#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/solution/mytest.py">
+    <entry file="file://$PROJECT_DIR$/solution/TensorFlowEstimator.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-594">
-          <caret line="146" column="36" selection-start-line="146" selection-start-column="36" selection-end-line="146" selection-end-column="36" />
-          <folding>
-            <element signature="e#470#484#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/challenge.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="669">
-          <caret line="59" selection-start-line="59" selection-end-line="59" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/solution/TFWrapper.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="552">
-          <caret line="41" column="26" selection-start-line="41" selection-start-column="26" selection-end-line="41" selection-end-column="40" />
+        <state relative-caret-position="798">
+          <caret line="42" selection-start-line="42" selection-end-line="42" />
           <folding>
             <element signature="e#0#55#0" expanded="true" />
+            <element signature="e#2151#2494#0" />
+            <element signature="e#2773#2956#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solution/pipeline1.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="135" selection-start-line="135" selection-end-line="135" />
+          <folding>
+            <element signature="e#470#526#0" expanded="true" />
+            <element signature="e#1036#1666#0" />
+            <element signature="e#1734#2722#0" />
+            <element signature="e#2781#3264#0" />
+            <element signature="e#3341#4195#0" />
+            <element signature="e#4306#4450#0" />
+            <element signature="e#4732#4909#0" />
+            <element signature="e#5849#7287#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solution/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="17" column="80" lean-forward="true" selection-start-line="17" selection-start-column="80" selection-end-line="17" selection-end-column="80" />
         </state>
       </provider>
     </entry>

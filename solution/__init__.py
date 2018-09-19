@@ -1,5 +1,4 @@
-import solution.mytest
-import solution.onlyNums
+import solution.pipeline1
 
 def get_pipeline():
     """
@@ -7,4 +6,4 @@ def get_pipeline():
     and evaluate a model on a pandas DataFrame. The pipeline should end with a
     custom Estimator that wraps a TensorFlow model. See the README for details.
     """
-    return mytest.get_pipeline()
+    return pipeline1.get_pipeline()

@@ -5,24 +5,20 @@
 
 ## joblib dump
 # https://stackoverflow.com/questions/34143829/sklearn-how-to-save-a-model-created-from-a-pipeline-and-gridsearchcv-using-jobli
-import sklearn
 from sklearn.base import BaseEstimator, TransformerMixin
-from sklearn.linear_model import LogisticRegression
+from sklearn.pipeline import make_pipeline, FeatureUnion
+from sklearn.preprocessing import StandardScaler, Imputer, OneHotEncoder, LabelEncoder, MinMaxScaler
 
-from challenge import get_data
 import pandas as pd
-
-from solution.TFWrapper import TFWrapper
-
 pd.set_option('display.max_columns', 500)
 pd.set_option('display.width', 1000)
 
-from sklearn.pipeline import Pipeline, make_pipeline, FeatureUnion
-from sklearn.preprocessing import StandardScaler, Imputer, OneHotEncoder, LabelEncoder
-from sklearn.utils import shuffle
+from solution.TensorFlowEstimator import TensorFlowEstimator
 
+#####################################################
+## Custom sklearn transformer classes for pipeline ##
+#####################################################
 
-X,y = get_data()
 
 class ColumnSelector(BaseEstimator, TransformerMixin):
     """
@@ -46,6 +42,7 @@ class ColumnSelector(BaseEstimator, TransformerMixin):
             cols_error = list(set(self.columns) - set(X.columns))
             raise KeyError("The DataFrame does not include the columns: %s" % cols_error)
 
+
 class CustomTypeTransformer(BaseEstimator, TransformerMixin):
     """
         Custom transformer for column type convertion on pandas df adhering to sklearn's transform iface.
@@ -57,8 +54,6 @@ class CustomTypeTransformer(BaseEstimator, TransformerMixin):
         assert isinstance(X, pd.DataFrame)
         X.loc[:, 'workclass'] = X.loc[:, 'workclass'].astype('category')
         X.loc[:, 'education'] = X.loc[:, 'education'].astype('category')
-        #X.loc[:, 'education-num'] = X.loc[:, 'education-num'].astype('category')
-        #X['education-num'] = X['education-num'].apply(str)
         X.loc[:, 'marital-status'] = X.loc[:, 'marital-status'].astype('category')
         X.loc[:, 'occupation'] = X.loc[:, 'occupation'].astype('category')
         X.loc[:, 'relationship'] = X.loc[:, 'relationship'].astype('category')
@@ -66,6 +61,7 @@ class CustomTypeTransformer(BaseEstimator, TransformerMixin):
         X.loc[:, 'sex'] = X.loc[:, 'sex'].astype('category')
         X.loc[:, 'native-country'] = X.loc[:, 'native-country'].astype('category')
         return X
+
 
 class TypeSelector(BaseEstimator, TransformerMixin):
     """
@@ -84,13 +80,13 @@ class TypeSelector(BaseEstimator, TransformerMixin):
         assert isinstance(X, pd.DataFrame)
         return X.select_dtypes(include=self.dtypes)
 
+
 class MissingCategoricalsTransformer(BaseEstimator, TransformerMixin):
     """
     Custom transformer for filling NaNs in pandas df adhering to sklearn's transform iface.
     Two strategies can be used: 'most_frequent' or 'none'. The latter fillsna with 'Unknown'
     """
-    def __init__(self, columns, strategy='none'):
-        self.columns = columns
+    def __init__(self, strategy='none'):
         self.strategy = strategy
 
     def fit(self, X, y=None):
@@ -98,7 +94,14 @@ class MissingCategoricalsTransformer(BaseEstimator, TransformerMixin):
 
     def transform(self, X):
         assert isinstance(X, pd.DataFrame)
-        for col in self.columns:
+
+        categorical_colums = ["workclass", "education", "marital-status", "occupation", "relationship", "race", "sex",
+                              "native-country"]
+        # when columns are deselected, these changes need to be reflected in the categorical
+        # columns as well as code later depends on this data structure
+        categorical_colums = [x for x in categorical_colums if x in list(X.columns.values)]
+
+        for col in categorical_colums:
             if self.strategy == 'none':
                 X.loc[:, col] = X.loc[:, col].cat.add_categories("Unknown").fillna('Unknown')
             elif self.strategy == 'most_frequent':
@@ -107,22 +110,22 @@ class MissingCategoricalsTransformer(BaseEstimator, TransformerMixin):
                 raise Exception('Unknown strategy to fill na categoricals')
         return X
 
+
 class PipelineAwareLabelEncoder(TransformerMixin, BaseEstimator):
+    """
+    Labelencoder specifically made for one hot encoding operation afterwards
+    """
     def fit(self, X, y=None):
         return self
 
     def transform(self, X, y=None):
         return LabelEncoder().fit_transform(X).reshape(-1, 1)
 
-class ShuffleTransformer(BaseEstimator, TransformerMixin):
-    def fit(self, X, y=None):
-        return self
 
-    def transform(self, X):
-        assert isinstance(X, pd.DataFrame)
-        return shuffle(X)
-
-class DenseToDataFrameTransformer(BaseEstimator, TransformerMixin):
+class SparseToDataFrameTransformer(BaseEstimator, TransformerMixin):
+    """
+    Custom transformer for converting a sparse matrix to pandas Dataframe
+    """
     def fit(self, X, y=None):
         return self
 
@@ -131,27 +134,20 @@ class DenseToDataFrameTransformer(BaseEstimator, TransformerMixin):
         p.columns = [str(x) for x in p.columns]
         return p
 
-# Selected columns
-# fnlgwt dropped due to low value for predictive power
-col_selection = X.columns.tolist()
-col_selection.remove("fnlwgt")
-# education can be removed as edu-num is more informative and replaces it.
-col_selection.remove("education")
 
+#####################################################
+##              Pipeline construction              ##
+#####################################################
 
-categorical_colums = ["workclass", "education", "marital-status", "occupation", "relationship", "race", "sex", "native-country"]
-# when columns are deselected, these changes need to be reflected in the categorical
-# columns as well as code later depends on this data structure
-categorical_colums = [x for x in categorical_colums if x in col_selection]
-
-## todo use pipeline for imputation?
 preprocess_pipeline = make_pipeline(
-    # Convert column dtypes of df
+    # Convert column dtypes of df ('object' -> 'category')
     CustomTypeTransformer(),
     # Select the columns we want to use for prediction
-    ColumnSelector(columns=col_selection),
-    MissingCategoricalsTransformer(columns=categorical_colums, strategy="none"),
-    # Standard scaling and one hot encoding
+    ColumnSelector(columns=["age", "workclass", "education-num", "marital-status", "occupation", "relationship", "race",
+                            "sex", "capital-gain", "capital-loss", "hours-per-week", "native-country"]),
+    # Impute missing categorical data (stragegy none => nan becomes 'unknown')
+    MissingCategoricalsTransformer(strategy="none"),
+    # Standard scaling, numeric imputation and one hot encoding of cats
     FeatureUnion(transformer_list=[
         ("numeric_features", make_pipeline(
             TypeSelector(dtypes=["int64"]),
@@ -194,25 +190,14 @@ preprocess_pipeline = make_pipeline(
             OneHotEncoder()
         ))
     ]),
-    DenseToDataFrameTransformer()
+    # Convert the sparse matrix into a dataframe again
+    SparseToDataFrameTransformer()
 )
 
-# Z = preprocess_pipeline.fit_transform(X)
-#
-# ZZ = Z.toarray()
-# print(type(Z.toarray()))
-# #print(pd.DataFrame(Z.todense()).shape)
-# #print(list(pd.DataFrame(Z.todense()).columns.values))
 classifier_pipeline = make_pipeline(
     preprocess_pipeline,
-    #LogisticRegression()
-    TFWrapper()
+    TensorFlowEstimator()
 )
-
-# import numpy as np
-# classifier_pipeline.fit(X, y)
-# preds = classifier_pipeline.predict(X)
-
 
 def get_pipeline():
     return classifier_pipeline
