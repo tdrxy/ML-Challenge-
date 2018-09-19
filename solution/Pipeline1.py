@@ -1,15 +1,6 @@
-
-# https://stackoverflow.com/questions/39001956/sklearn-pipeline-how-to-apply-different-transformations-on-different-columns
-# https://ramhiser.com/post/2018-04-16-building-scikit-learn-pipeline-with-pandas-dataframe/
-# https://stackoverflow.com/questions/47790854/how-to-perform-onehotencoding-in-sklearn-getting-value-error
-
-## joblib dump
-# https://stackoverflow.com/questions/34143829/sklearn-how-to-save-a-model-created-from-a-pipeline-and-gridsearchcv-using-jobli
-import sklearn
 from sklearn.base import BaseEstimator, TransformerMixin
-from sklearn.model_selection import GridSearchCV
 from sklearn.pipeline import make_pipeline, FeatureUnion
-from sklearn.preprocessing import StandardScaler, Imputer, OneHotEncoder, LabelEncoder, MinMaxScaler
+from sklearn.preprocessing import StandardScaler, Imputer, OneHotEncoder, LabelEncoder
 
 import warnings
 warnings.filterwarnings("ignore")
@@ -50,7 +41,7 @@ class ColumnSelector(BaseEstimator, TransformerMixin):
 
 class CustomTypeTransformer(BaseEstimator, TransformerMixin):
     """
-        Custom transformer for column type convertion on pandas df adhering to sklearn's transform iface.
+        Custom transformer for column type conversion on pandas df adhering to sklearn's transform iface.
     """
     def fit(self, X, y=None):
         return self
@@ -70,10 +61,10 @@ class CustomTypeTransformer(BaseEstimator, TransformerMixin):
 
 class TypeSelector(BaseEstimator, TransformerMixin):
     """
-        Custom transformer for selecting columns based on type in pandas df adhering to sklearn's transform iface.
-            Usage ex:
-            cs = TypeSelector(dtypes=["int64", "float32"])
-            cs.fit_transform(df).head()
+    Custom transformer for selecting columns based on dtype in pandas df adhering to sklearn's transform iface.
+        Usage ex:
+        cs = TypeSelector(dtypes=["int64", "float32"])
+        cs.fit_transform(df).head()
     """
     def __init__(self, dtypes):
         self.dtypes = dtypes
@@ -88,7 +79,7 @@ class TypeSelector(BaseEstimator, TransformerMixin):
 
 class MissingCategoricalsTransformer(BaseEstimator, TransformerMixin):
     """
-    Custom transformer for filling NaNs in pandas df adhering to sklearn's transform iface.
+    Custom transformer for filling categorical NaNs in pandas df adhering to sklearn's transform iface.
     Two strategies can be used: 'most_frequent' or 'none'. The latter fillsna with 'Unknown'
     """
     def __init__(self, strategy='none'):
@@ -124,7 +115,7 @@ class PipelineAwareLabelEncoder(TransformerMixin, BaseEstimator):
 
 class SparseToDataFrameTransformer(BaseEstimator, TransformerMixin):
     """
-    Custom transformer for converting a sparse matrix to pandas Dataframe
+    Custom transformer for converting a scipy sparse matrix to pandas Dataframe
     """
     def fit(self, X, y=None):
         return self
@@ -145,15 +136,15 @@ preprocess_pipeline = make_pipeline(
     # Select the columns we want to use for prediction
     ColumnSelector(columns=["age", "workclass", "education-num", "marital-status", "occupation", "relationship", "race",
                             "sex", "capital-gain", "capital-loss", "hours-per-week", "native-country"]),
-    # Impute missing categorical data (stragegy none => nan becomes 'unknown')
-    #MissingCategoricalsTransformer(strategy="none"),
-    # Standard scaling, numeric imputation and one hot encoding of cats
+
     FeatureUnion(transformer_list=[
+        # Standard scaling and numerical imputation
         ("numeric_features", make_pipeline(
             TypeSelector(dtypes=["int64"]),
             Imputer(strategy="median"),
             StandardScaler()
         )),
+        # Impute missing categoricals and one-hot encode
         ("categorical_features", make_pipeline(
            TypeSelector(dtypes=["category"]),
            MissingCategoricalsTransformer(strategy="none"),
@@ -165,66 +156,10 @@ preprocess_pipeline = make_pipeline(
     SparseToDataFrameTransformer()
 )
 
-# preprocess_pipeline = make_pipeline(
-#     # Convert column dtypes of df ('object' -> 'category')
-#     CustomTypeTransformer(),
-#     # Select the columns we want to use for prediction
-#     ColumnSelector(columns=["age", "workclass", "education-num", "marital-status", "occupation", "relationship", "race",
-#                             "sex", "capital-gain", "capital-loss", "hours-per-week", "native-country"]),
-#     # Impute missing categorical data (stragegy none => nan becomes 'unknown')
-#     MissingCategoricalsTransformer(strategy="none"),
-#     # Standard scaling, numeric imputation and one hot encoding of cats
-#     FeatureUnion(transformer_list=[
-#         ("numeric_features", make_pipeline(
-#             TypeSelector(dtypes=["int64"]),
-#             Imputer(strategy="median"),
-#             StandardScaler()
-#         )),
-#         ("categorical_feature1", make_pipeline(
-#             ColumnSelector(columns=["workclass"]),
-#             PipelineAwareLabelEncoder(),
-#             OneHotEncoder()
-#         )),
-#         ("categorical_feature4", make_pipeline(
-#             ColumnSelector(columns=["marital-status"]),
-#             PipelineAwareLabelEncoder(),
-#             OneHotEncoder()
-#         )),
-#         ("categorical_feature5", make_pipeline(
-#             ColumnSelector(columns=["occupation"]),
-#             PipelineAwareLabelEncoder(),
-#             OneHotEncoder()
-#         )),
-#         ("categorical_feature6", make_pipeline(
-#             ColumnSelector(columns=["relationship"]),
-#             PipelineAwareLabelEncoder(),
-#             OneHotEncoder()
-#         )),
-#         ("categorical_feature7", make_pipeline(
-#             ColumnSelector(columns=["race"]),
-#             PipelineAwareLabelEncoder(),
-#             OneHotEncoder()
-#         )),
-#         ("categorical_feature8", make_pipeline(
-#             ColumnSelector(columns=["sex"]),
-#             PipelineAwareLabelEncoder(),
-#             OneHotEncoder()
-#         )),
-#         ("categorical_feature9", make_pipeline(
-#             ColumnSelector(columns=["native-country"]),
-#             PipelineAwareLabelEncoder(),
-#             OneHotEncoder()
-#         ))
-#     ]),
-#     # Convert the sparse matrix into a dataframe again
-#     SparseToDataFrameTransformer()
-# )
-
-
 
 classifier_pipeline = make_pipeline(
     preprocess_pipeline,
-    TensorFlowEstimator()
+    TensorFlowEstimator(dropout=0.3, hidden_units=[128, 48, 12], training_steps=900)
 )
 
 

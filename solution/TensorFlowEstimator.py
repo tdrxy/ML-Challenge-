@@ -30,7 +30,6 @@ class TensorFlowEstimator(BaseEstimator, ClassifierMixin):
         # Create input fn for tensorflow
         input_fn = self._create_input_fn(X, y, num_epochs=self.num_epochs, batch_size=self.batch_size, shuffle=True)
 
-        #self.model = tf.estimator.LinearClassifier(feature_columns=self.feat_cols, n_classes=2)
         self.model = DNNClassifier(
             feature_columns=self.feat_cols,
             n_classes=2,

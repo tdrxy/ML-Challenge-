@@ -15,7 +15,7 @@
 
 ## Tensorflow model selection
     - LinearClassifier was tried first (logistic reg) and achieved 0.9 AUCROC
-    - DNNClassifier was used in the end with +- 0.91 AUCROC
+    - DNNClassifier was used in the end with +- 0.911 AUCROC
     - Hyperparameters were found via mixture of trial-and-error and gridSearchCV
 
 ## Possible other paths to explore (*: stretch goals)
