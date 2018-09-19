@@ -5,9 +5,14 @@
 
 ## joblib dump
 # https://stackoverflow.com/questions/34143829/sklearn-how-to-save-a-model-created-from-a-pipeline-and-gridsearchcv-using-jobli
+import sklearn
 from sklearn.base import BaseEstimator, TransformerMixin
+from sklearn.model_selection import GridSearchCV
 from sklearn.pipeline import make_pipeline, FeatureUnion
 from sklearn.preprocessing import StandardScaler, Imputer, OneHotEncoder, LabelEncoder, MinMaxScaler
+
+import warnings
+warnings.filterwarnings("ignore")
 
 import pandas as pd
 pd.set_option('display.max_columns', 500)
@@ -198,6 +203,7 @@ classifier_pipeline = make_pipeline(
     preprocess_pipeline,
     TensorFlowEstimator()
 )
+
 
 def get_pipeline():
     return classifier_pipeline
