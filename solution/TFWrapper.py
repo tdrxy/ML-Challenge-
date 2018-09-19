@@ -6,6 +6,7 @@ import numpy as np
 import pandas as pd
 from pandas.api.types import is_numeric_dtype
 #https://www.kaggle.com/salekali/logistic-regression-classification-with-tensorflow
+from tensorflow.python.estimator.canned.dnn import DNNClassifier
 
 
 class TFWrapper(BaseEstimator, ClassifierMixin):
@@ -13,7 +14,7 @@ class TFWrapper(BaseEstimator, ClassifierMixin):
     def __init__(self):
 
         # HyperParameters
-        self.batch_size = 128
+        self.batch_size = 100
         self.num_epochs = 1000
 
         # Class specific vars
@@ -33,8 +34,13 @@ class TFWrapper(BaseEstimator, ClassifierMixin):
         # Create input fn for tensorflow
         input_fn = self.create_input_fn(X, y, num_epochs=self.num_epochs, batch_size=self.batch_size, shuffle=True)
 
-        self.model = tf.estimator.LinearClassifier(feature_columns=self.feat_cols, n_classes=2)
-        self.model.train(input_fn=input_fn, steps=5000)
+        #self.model = tf.estimator.LinearClassifier(feature_columns=self.feat_cols, n_classes=2)
+        self.model = DNNClassifier(
+            feature_columns=self.feat_cols,
+            n_classes=2,
+            dropout=0.25,
+            hidden_units=[64, 32])
+        self.model.train(input_fn=input_fn, steps=500)
 
         return self
 

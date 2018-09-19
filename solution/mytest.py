@@ -144,7 +144,7 @@ categorical_colums = ["workclass", "education", "marital-status", "occupation", 
 # columns as well as code later depends on this data structure
 categorical_colums = [x for x in categorical_colums if x in col_selection]
 
-## TODO SHUFFLE
+## todo use pipeline for imputation?
 preprocess_pipeline = make_pipeline(
     # Convert column dtypes of df
     CustomTypeTransformer(),

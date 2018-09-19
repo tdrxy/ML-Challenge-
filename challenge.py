@@ -4,6 +4,7 @@ import pandas as pd
 import sklearn.metrics
 import sklearn.pipeline
 import sys
+import numpy as np
 
 # Cache the train and test data in {repo}/__data__.
 cachedir = os.path.join(sys.path[0], '__data__')
@@ -55,6 +56,8 @@ def score_solution():
         '`predict_proba` output shape.'
     y_pred = y_pred if y_pred.ndim == 1 else y_pred[:, 1]
     # Evaluate the predictions with the AUC of the ROC curve.
+    y_pred2 = list(map((lambda x: 0 if x <= 0.5 else 1), y_pred.tolist()))
+    print("Accuracy: " + str(np.mean(np.array(y_pred2) == np.array(list(y_test)))))
     return sklearn.metrics.roc_auc_score(y_test, y_pred)
 
 
