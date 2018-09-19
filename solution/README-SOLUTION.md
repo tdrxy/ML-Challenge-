@@ -31,4 +31,6 @@
       pipeline with a joblib.dump for example. You could afterwards use this data to reconstruct the original pipeline.
     - More exotic neural nets (width/depth/connections)
     - Select K best features
+    - Better gridsearch: sampling randomly on log scale. Finding best first rudimentary parameters, then zoom in on that
+      subspace, and perform gridsearch on that zoomed in subspace
     - ...

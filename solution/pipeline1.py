@@ -99,14 +99,7 @@ class MissingCategoricalsTransformer(BaseEstimator, TransformerMixin):
 
     def transform(self, X):
         assert isinstance(X, pd.DataFrame)
-
-        categorical_colums = ["workclass", "education", "marital-status", "occupation", "relationship", "race", "sex",
-                              "native-country"]
-        # when columns are deselected, these changes need to be reflected in the categorical
-        # columns as well as code later depends on this data structure
-        categorical_colums = [x for x in categorical_colums if x in list(X.columns.values)]
-
-        for col in categorical_colums:
+        for col in X.columns:
             if self.strategy == 'none':
                 X.loc[:, col] = X.loc[:, col].cat.add_categories("Unknown").fillna('Unknown')
             elif self.strategy == 'most_frequent':
@@ -124,7 +117,9 @@ class PipelineAwareLabelEncoder(TransformerMixin, BaseEstimator):
         return self
 
     def transform(self, X, y=None):
-        return LabelEncoder().fit_transform(X).reshape(-1, 1)
+        for col in X.columns:
+            X.loc[:,col] = LabelEncoder().fit_transform(X.loc[:,col]).reshape(-1, 1)
+        return X
 
 
 class SparseToDataFrameTransformer(BaseEstimator, TransformerMixin):
@@ -151,7 +146,7 @@ preprocess_pipeline = make_pipeline(
     ColumnSelector(columns=["age", "workclass", "education-num", "marital-status", "occupation", "relationship", "race",
                             "sex", "capital-gain", "capital-loss", "hours-per-week", "native-country"]),
     # Impute missing categorical data (stragegy none => nan becomes 'unknown')
-    MissingCategoricalsTransformer(strategy="none"),
+    #MissingCategoricalsTransformer(strategy="none"),
     # Standard scaling, numeric imputation and one hot encoding of cats
     FeatureUnion(transformer_list=[
         ("numeric_features", make_pipeline(
@@ -159,45 +154,73 @@ preprocess_pipeline = make_pipeline(
             Imputer(strategy="median"),
             StandardScaler()
         )),
-        ("categorical_feature1", make_pipeline(
-            ColumnSelector(columns=["workclass"]),
-            PipelineAwareLabelEncoder(),
-            OneHotEncoder()
-        )),
-        ("categorical_feature4", make_pipeline(
-            ColumnSelector(columns=["marital-status"]),
-            PipelineAwareLabelEncoder(),
-            OneHotEncoder()
-        )),
-        ("categorical_feature5", make_pipeline(
-            ColumnSelector(columns=["occupation"]),
-            PipelineAwareLabelEncoder(),
-            OneHotEncoder()
-        )),
-        ("categorical_feature6", make_pipeline(
-            ColumnSelector(columns=["relationship"]),
-            PipelineAwareLabelEncoder(),
-            OneHotEncoder()
-        )),
-        ("categorical_feature7", make_pipeline(
-            ColumnSelector(columns=["race"]),
-            PipelineAwareLabelEncoder(),
-            OneHotEncoder()
-        )),
-        ("categorical_feature8", make_pipeline(
-            ColumnSelector(columns=["sex"]),
-            PipelineAwareLabelEncoder(),
-            OneHotEncoder()
-        )),
-        ("categorical_feature9", make_pipeline(
-            ColumnSelector(columns=["native-country"]),
-            PipelineAwareLabelEncoder(),
-            OneHotEncoder()
+        ("categorical_features", make_pipeline(
+           TypeSelector(dtypes=["category"]),
+           MissingCategoricalsTransformer(strategy="none"),
+           PipelineAwareLabelEncoder(),
+           OneHotEncoder()
         ))
     ]),
     # Convert the sparse matrix into a dataframe again
     SparseToDataFrameTransformer()
 )
+
+# preprocess_pipeline = make_pipeline(
+#     # Convert column dtypes of df ('object' -> 'category')
+#     CustomTypeTransformer(),
+#     # Select the columns we want to use for prediction
+#     ColumnSelector(columns=["age", "workclass", "education-num", "marital-status", "occupation", "relationship", "race",
+#                             "sex", "capital-gain", "capital-loss", "hours-per-week", "native-country"]),
+#     # Impute missing categorical data (stragegy none => nan becomes 'unknown')
+#     MissingCategoricalsTransformer(strategy="none"),
+#     # Standard scaling, numeric imputation and one hot encoding of cats
+#     FeatureUnion(transformer_list=[
+#         ("numeric_features", make_pipeline(
+#             TypeSelector(dtypes=["int64"]),
+#             Imputer(strategy="median"),
+#             StandardScaler()
+#         )),
+#         ("categorical_feature1", make_pipeline(
+#             ColumnSelector(columns=["workclass"]),
+#             PipelineAwareLabelEncoder(),
+#             OneHotEncoder()
+#         )),
+#         ("categorical_feature4", make_pipeline(
+#             ColumnSelector(columns=["marital-status"]),
+#             PipelineAwareLabelEncoder(),
+#             OneHotEncoder()
+#         )),
+#         ("categorical_feature5", make_pipeline(
+#             ColumnSelector(columns=["occupation"]),
+#             PipelineAwareLabelEncoder(),
+#             OneHotEncoder()
+#         )),
+#         ("categorical_feature6", make_pipeline(
+#             ColumnSelector(columns=["relationship"]),
+#             PipelineAwareLabelEncoder(),
+#             OneHotEncoder()
+#         )),
+#         ("categorical_feature7", make_pipeline(
+#             ColumnSelector(columns=["race"]),
+#             PipelineAwareLabelEncoder(),
+#             OneHotEncoder()
+#         )),
+#         ("categorical_feature8", make_pipeline(
+#             ColumnSelector(columns=["sex"]),
+#             PipelineAwareLabelEncoder(),
+#             OneHotEncoder()
+#         )),
+#         ("categorical_feature9", make_pipeline(
+#             ColumnSelector(columns=["native-country"]),
+#             PipelineAwareLabelEncoder(),
+#             OneHotEncoder()
+#         ))
+#     ]),
+#     # Convert the sparse matrix into a dataframe again
+#     SparseToDataFrameTransformer()
+# )
+
+
 
 classifier_pipeline = make_pipeline(
     preprocess_pipeline,
