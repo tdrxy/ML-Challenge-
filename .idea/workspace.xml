@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e5a3ed23-0908-4c7e-8248-fb54dedd2c5f" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/challenge.py" beforeDir="false" afterPath="$PROJECT_DIR$/challenge.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/solution/DataExploration" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/solution/README-SOLUTION.md" beforeDir="false" afterPath="$PROJECT_DIR$/solution/README-SOLUTION.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/solution/TensorFlowEstimator.py" beforeDir="false" afterPath="$PROJECT_DIR$/solution/TensorFlowEstimator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/solution/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/solution/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/solution/gridsearch.py" beforeDir="false" afterPath="$PROJECT_DIR$/solution/GridSearch.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/solution/pipeline1.py" beforeDir="false" afterPath="$PROJECT_DIR$/solution/Pipeline1.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -22,7 +15,7 @@
     <favorites_list name="machine-learning-challenge-master" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/solution/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -35,16 +28,10 @@
       <file leaf-file-name="Pipeline1.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/solution/Pipeline1.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="842">
-              <caret line="164" lean-forward="true" selection-start-line="164" selection-end-line="164" />
+            <state relative-caret-position="3040">
+              <caret line="164" selection-start-line="164" selection-end-line="164" />
               <folding>
                 <element signature="e#0#56#0" expanded="true" />
-                <element signature="e#1036#1666#0" />
-                <element signature="e#1734#2722#0" />
-                <element signature="e#2781#3264#0" />
-                <element signature="e#3341#4195#0" />
-                <element signature="e#4706#5014#0" />
-                <element signature="e#4732#4909#0" />
               </folding>
             </state>
           </provider>
@@ -53,7 +40,7 @@
       <file leaf-file-name="GridSearch.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/solution/GridSearch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
+            <state relative-caret-position="171">
               <caret line="11" column="2" selection-start-line="11" selection-start-column="2" selection-end-line="11" selection-end-column="82" />
               <folding>
                 <element signature="e#0#48#0" expanded="true" />
@@ -62,20 +49,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README-SOLUTION.md" pinned="false" current-in-tab="false">
+      <file leaf-file-name="README-SOLUTION.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/solution/README-SOLUTION.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="38">
-              <caret line="2" column="20" lean-forward="true" selection-start-line="2" selection-start-column="20" selection-end-line="2" selection-end-column="20" />
+            <state relative-caret-position="532">
+              <caret line="28" column="10" selection-start-line="28" selection-start-column="10" selection-end-line="28" selection-end-column="10" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="challenge.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="challenge.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/challenge.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="910">
-              <caret line="50" column="43" lean-forward="true" selection-start-line="50" selection-start-column="43" selection-end-line="50" selection-end-column="43" />
+              <caret line="50" column="43" selection-start-line="50" selection-start-column="43" selection-end-line="50" selection-end-column="43" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -86,11 +73,10 @@
       <file leaf-file-name="TensorFlowEstimator.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/solution/TensorFlowEstimator.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1045">
-              <caret line="55" column="29" lean-forward="true" selection-start-line="55" selection-start-column="29" selection-end-line="55" selection-end-column="29" />
+            <state relative-caret-position="931">
+              <caret line="55" column="29" selection-start-line="55" selection-start-column="29" selection-end-line="55" selection-end-column="29" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
-                <element signature="e#2773#2956#0" />
               </folding>
             </state>
           </provider>
@@ -125,10 +111,10 @@
         <option value="$PROJECT_DIR$/solution/pipeline1.py" />
         <option value="$PROJECT_DIR$/solution/gridsearch.py" />
         <option value="$PROJECT_DIR$/solution/GridSearch.py" />
-        <option value="$PROJECT_DIR$/solution/README-SOLUTION.md" />
         <option value="$PROJECT_DIR$/challenge.py" />
         <option value="$PROJECT_DIR$/solution/TensorFlowEstimator.py" />
         <option value="$PROJECT_DIR$/solution/Pipeline1.py" />
+        <option value="$PROJECT_DIR$/solution/README-SOLUTION.md" />
       </list>
     </option>
   </component>
@@ -329,24 +315,24 @@
     <frame x="0" y="22" width="2560" height="1418" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4996215" visible="true" weight="0.24970461" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4996215" visible="true" weight="0.24970461" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Statistic" weight="0.329296" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.329296" />
+      <window_info anchor="bottom" id="Statistic" order="7" weight="0.329296" />
+      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.27933383" />
-      <window_info anchor="bottom" id="Version Control" />
-      <window_info anchor="bottom" id="Python Console" weight="0.329296" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Python Console" order="7" weight="0.329296" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" weight="0.329296" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.329296" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.35049206" />
-      <window_info id="Favorites" sideWeight="0.5003785" side_tool="true" weight="0.24970461" />
+      <window_info id="Favorites" order="2" sideWeight="0.5003785" side_tool="true" weight="0.24970461" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.329296" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -370,6 +356,60 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/solution/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="8" column="16" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solution/Pipeline1.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3040">
+          <caret line="164" lean-forward="true" selection-start-line="164" selection-end-line="164" />
+          <folding>
+            <element signature="e#0#56#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solution/GridSearch.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="11" column="2" selection-start-line="11" selection-start-column="2" selection-end-line="11" selection-end-column="82" />
+          <folding>
+            <element signature="e#0#48#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solution/README-SOLUTION.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="2" column="20" lean-forward="true" selection-start-line="2" selection-start-column="20" selection-end-line="2" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solution/TensorFlowEstimator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="931">
+          <caret line="55" column="29" lean-forward="true" selection-start-line="55" selection-start-column="29" selection-end-line="55" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/challenge.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="836">
+          <caret line="50" column="43" lean-forward="true" selection-start-line="50" selection-start-column="43" selection-end-line="50" selection-end-column="43" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="676">
@@ -433,16 +473,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/solution/onlyNums.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="71" column="26" selection-start-line="71" selection-start-column="26" selection-end-line="71" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pipe.pkl">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/solution/onlyNums.py" />
+    <entry file="file://$PROJECT_DIR$/pipe.pkl" />
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -481,16 +513,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/solution/DataExploration">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="14" column="21" selection-start-line="14" selection-start-column="21" selection-end-line="14" selection-end-column="21" />
-          <folding>
-            <element signature="e#0#46#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/solution/DataExploration" />
     <entry file="file://$PROJECT_DIR$/solution/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="152">
@@ -500,7 +523,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/solution/GridSearch.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
+        <state relative-caret-position="171">
           <caret line="11" column="2" selection-start-line="11" selection-start-column="2" selection-end-line="11" selection-end-column="82" />
           <folding>
             <element signature="e#0#48#0" expanded="true" />
@@ -508,36 +531,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/solution/README-SOLUTION.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="20" lean-forward="true" selection-start-line="2" selection-start-column="20" selection-end-line="2" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/solution/TensorFlowEstimator.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1045">
-          <caret line="55" column="29" lean-forward="true" selection-start-line="55" selection-start-column="29" selection-end-line="55" selection-end-column="29" />
+        <state relative-caret-position="931">
+          <caret line="55" column="29" selection-start-line="55" selection-start-column="29" selection-end-line="55" selection-end-column="29" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
-            <element signature="e#2773#2956#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/solution/Pipeline1.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="842">
-          <caret line="164" lean-forward="true" selection-start-line="164" selection-end-line="164" />
+        <state relative-caret-position="3040">
+          <caret line="164" selection-start-line="164" selection-end-line="164" />
           <folding>
             <element signature="e#0#56#0" expanded="true" />
-            <element signature="e#1036#1666#0" />
-            <element signature="e#1734#2722#0" />
-            <element signature="e#2781#3264#0" />
-            <element signature="e#3341#4195#0" />
-            <element signature="e#4706#5014#0" />
-            <element signature="e#4732#4909#0" />
           </folding>
         </state>
       </provider>
@@ -545,10 +554,17 @@
     <entry file="file://$PROJECT_DIR$/challenge.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="910">
-          <caret line="50" column="43" lean-forward="true" selection-start-line="50" selection-start-column="43" selection-end-line="50" selection-end-column="43" />
+          <caret line="50" column="43" selection-start-line="50" selection-start-column="43" selection-end-line="50" selection-end-column="43" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/solution/README-SOLUTION.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="532">
+          <caret line="28" column="10" selection-start-line="28" selection-start-column="10" selection-end-line="28" selection-end-column="10" />
         </state>
       </provider>
     </entry>

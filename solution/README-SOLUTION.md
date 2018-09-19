@@ -25,8 +25,8 @@
       distributed.
     - Bin certain numerical columns such as age and hours-per-week and construct indicator columns to avoid continuous domain.
     - Resample data for class imbalance problem - although AUCROC suggests not such a problem.
-  * - More exotic imputations: use a ML model to impute missing values for variables based on dataset.
-  * - Joblib dump: I couldn't manage to save the tensorflow estimator with a simple joblib.dump() call. However, I suspect a more
+    - (*) More exotic imputations: use a ML model to impute missing values for variables based on dataset.
+    - (*) Joblib dump: I couldn't manage to save the tensorflow estimator with a simple joblib.dump() call. However, I suspect a more
       custom approach is possible where the tensorflow model would be saved using checkpoints/Saver() and the sklearn
       pipeline with a joblib.dump for example. You could afterwards use this data to reconstruct the original pipeline.
     - More exotic neural nets (width/depth/connections)
