@@ -31,10 +31,10 @@ class TFWrapper(BaseEstimator, ClassifierMixin):
         self.feat_cols = TFWrapper.gen_feat_columns(X)
 
         # Create input fn for tensorflow
-        input_fn = self.create_input_fn(X, y, num_epochs=self.num_epochs, batch_size=self.batch_size)
+        input_fn = self.create_input_fn(X, y, num_epochs=self.num_epochs, batch_size=self.batch_size, shuffle=True)
 
         self.model = tf.estimator.LinearClassifier(feature_columns=self.feat_cols, n_classes=2)
-        self.model.train(input_fn=input_fn, steps=1000)
+        self.model.train(input_fn=input_fn, steps=5000)
 
         return self
 
@@ -57,7 +57,7 @@ class TFWrapper(BaseEstimator, ClassifierMixin):
     def predict_proba(self, X):
         return self.predict(X)
 
-    def create_input_fn(self, X, y=None, num_epochs=1, batch_size=10):
+    def create_input_fn(self, X, y=None, num_epochs=1, batch_size=10, shuffle=False):
         assert isinstance(X, pd.DataFrame)
         #Note to self" following method throws OutOfRangeError when epochs too small during reads
         #https://www.tensorflow.org/api_docs/python/tf/estimator/inputs/pandas_input_fn
@@ -66,7 +66,7 @@ class TFWrapper(BaseEstimator, ClassifierMixin):
             y=y,
             batch_size=batch_size,
             num_epochs=num_epochs,
-            shuffle=False,
+            shuffle=shuffle,
             queue_capacity=1000,
             num_threads=1,
         )
