@@ -2,11 +2,18 @@
 # https://stackoverflow.com/questions/39001956/sklearn-pipeline-how-to-apply-different-transformations-on-different-columns
 # https://ramhiser.com/post/2018-04-16-building-scikit-learn-pipeline-with-pandas-dataframe/
 # https://stackoverflow.com/questions/47790854/how-to-perform-onehotencoding-in-sklearn-getting-value-error
+
+## joblib dump
+# https://stackoverflow.com/questions/34143829/sklearn-how-to-save-a-model-created-from-a-pipeline-and-gridsearchcv-using-jobli
+import sklearn
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.linear_model import LogisticRegression
 
 from challenge import get_data
 import pandas as pd
+
+from solution.TFWrapper import TFWrapper
+
 pd.set_option('display.max_columns', 500)
 pd.set_option('display.width', 1000)
 
@@ -16,7 +23,6 @@ from sklearn.utils import shuffle
 
 
 X,y = get_data()
-print(X.head(3))
 
 class ColumnSelector(BaseEstimator, TransformerMixin):
     """
@@ -116,6 +122,15 @@ class ShuffleTransformer(BaseEstimator, TransformerMixin):
         assert isinstance(X, pd.DataFrame)
         return shuffle(X)
 
+class DenseToDataFrameTransformer(BaseEstimator, TransformerMixin):
+    def fit(self, X, y=None):
+        return self
+
+    def transform(self, X):
+        p = pd.DataFrame(X.toarray())
+        p.columns = [str(x) for x in p.columns]
+        return p
+
 # Selected columns
 # fnlgwt dropped due to low value for predictive power
 col_selection = X.columns.tolist()
@@ -178,24 +193,26 @@ preprocess_pipeline = make_pipeline(
             PipelineAwareLabelEncoder(),
             OneHotEncoder()
         ))
-    ])
+    ]),
+    DenseToDataFrameTransformer()
 )
 
-Z = preprocess_pipeline.fit_transform(X)
-
-ZZ = Z.toarray()
-print(type(Z.toarray()))
-#print(pd.DataFrame(Z.todense()).shape)
-#print(list(pd.DataFrame(Z.todense()).columns.values))
+# Z = preprocess_pipeline.fit_transform(X)
+#
+# ZZ = Z.toarray()
+# print(type(Z.toarray()))
+# #print(pd.DataFrame(Z.todense()).shape)
+# #print(list(pd.DataFrame(Z.todense()).columns.values))
 classifier_pipeline = make_pipeline(
     preprocess_pipeline,
-    LogisticRegression()
+    #LogisticRegression()
+    TFWrapper()
 )
 
 # import numpy as np
-# classifier_pipeline.fit(X, y.ravel())
+# classifier_pipeline.fit(X, y)
 # preds = classifier_pipeline.predict(X)
-# print(np.mean(preds == y))
-#
-# def get_pipeline():
-#     return classifier_pipeline
+
+
+def get_pipeline():
+    return classifier_pipeline
